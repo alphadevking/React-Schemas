@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 interface FormInputs {
-    [key: string]: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
 }
 
-type Event = React.FormEvent<HTMLFormElement>;
+interface FormElements extends HTMLFormControlsCollection {
+    firstname: HTMLInputElement;
+    lastname: HTMLInputElement;
+    email: HTMLInputElement;
+    password: HTMLInputElement;
+}
+
+type Event = React.FormEvent<HTMLFormElement & { elements: FormElements }>;
 
 const useSignUpForm = (): {
     formInputs: FormInputs,
@@ -12,10 +22,21 @@ const useSignUpForm = (): {
     handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 } => {
 
-    const [formInputs, setFormInputs] = useState<FormInputs>({});
-
     const handleFormSubmit = (event: Event): void => {
         event.preventDefault();
+
+        const formInputs: FormInputs = {
+            firstname: event.currentTarget.elements.firstname.value || '',
+            lastname: event.currentTarget.elements.lastname.value || '',
+            email: event.currentTarget.elements.email.value || '',
+            password: event.currentTarget.elements.email.value || '',
+        };
+
+        console.log(
+            `Your name is: ${formInputs.firstname} ${formInputs.lastname} and your email address is: ${formInputs.email}`
+        );
+
+        setFormInputs(formInputs);
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -25,6 +46,13 @@ const useSignUpForm = (): {
             [event.target.name]: event.target.value
         }));
     };
+
+    const [formInputs, setFormInputs] = React.useState<FormInputs>({
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+    });
 
     return { formInputs, handleFormSubmit, handleInputChange };
 };

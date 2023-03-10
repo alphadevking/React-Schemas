@@ -1,8 +1,11 @@
+import useSignUpForm from '@/hooks/useSignUpForm';
 import Head from 'next/head'
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Home() {
+
+  const { formInputs, handleFormSubmit, handleInputChange } = useSignUpForm()
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -21,29 +24,40 @@ export default function Home() {
 
       <main className='p-[5%]'>
         <div className="flex justify-left">
-          <form className="w-screen md:w-96 mx-auto">
+          <form onSubmit={handleFormSubmit} className="w-screen md:w-96 mx-auto">
 
             <h1 className="text-2xl font-bold my-4">Sign up for an account</h1>
 
             <div className="my-2">
-              <label className="block text-gray-700 font-bold mb-2" htmlFor="fullName">Full Name</label>
-              <input className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="fullName" type="text" name="fullName" placeholder='Enter your fullname' />
+              <label className="block text-gray-700 font-bold mb-2" htmlFor="firstname">Firstname</label>
+              <input 
+              onChange={handleInputChange}
+              value={formInputs.firstname}
+              className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="firstname" type="text" name="firstname" placeholder='Enter your firstname' />
             </div>
 
             <div className="my-2">
-              <label className="block text-gray-700 font-bold mb-2" htmlFor="lastname">Last Name</label>
-              <input className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="lastname" type="text" name="lastname" placeholder='Enter your lastname' />
+              <label className="block text-gray-700 font-bold mb-2" htmlFor="lastname">Lastname</label>
+              <input 
+              onChange={handleInputChange}
+              value={formInputs.lastname}
+              className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="lastname" type="text" name="lastname" placeholder='Enter your lastname' />
             </div>
 
             <div className="my-2">
               <label className="block text-gray-700 font-bold mb-2" htmlFor="email">Email</label>
-              <input className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" name="email" placeholder='Enter your email address' />
+              <input 
+              onChange={handleInputChange}
+              value={formInputs.email}
+              className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" name="email" placeholder='Enter your email address' />
             </div>
 
             <div className="my-2 relative">
               <label className="block text-gray-700 font-bold mb-2" htmlFor="password">Password</label>
-              <input
-                className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
+              <input 
+              onChange={handleInputChange}
+              value={formInputs.password}
+              className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 name="password"
