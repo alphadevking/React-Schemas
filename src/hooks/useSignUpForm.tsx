@@ -1,4 +1,5 @@
 import React from 'react';
+import formInputs from './formInputs.json';
 
 interface FormInputs {
     firstname: string;
