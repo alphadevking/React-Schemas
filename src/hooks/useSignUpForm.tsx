@@ -1,6 +1,4 @@
 import React from 'react';
-import fs from 'fs';
-import formInputDatabase from './formInputs.json';
 
 interface FormInputs {
     firstname: string;
@@ -24,7 +22,7 @@ const useSignUpForm = (): {
     handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 } => {
 
-    const handleFormSubmit = (event: Event): void => {
+    const handleFormSubmit = async (event: Event): Promise<void> => {
         event.preventDefault();
 
         const formInputs: FormInputs = {
@@ -40,15 +38,25 @@ const useSignUpForm = (): {
 
         setFormInputs(formInputs);
 
-        // Write formInputDatabase to file
-        fs.writeFile('./formInputDatabase.json', JSON.stringify(formInputDatabase), (err) => {
-            if (err) {
-                console.error(err);
+        try {
+            const response = await fetch('/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formInputs),
+            });
+
+            if (response.ok) {
+                console.log('Form data successfully submitted.');
             } else {
-                console.log('formInputDatabase successfully written to file.');
+                console.error('Failed to submit form data.');
             }
-        });
+        } catch (error) {
+            console.error(error);
+        }
     };
+
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         event.persist();
