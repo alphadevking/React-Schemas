@@ -1,5 +1,6 @@
 import React from 'react';
-import formInputs from './formInputs.json';
+import fs from 'fs';
+import formInputDatabase from './formInputs.json';
 
 interface FormInputs {
     firstname: string;
@@ -38,6 +39,15 @@ const useSignUpForm = (): {
         );
 
         setFormInputs(formInputs);
+
+        // Write formInputDatabase to file
+        fs.writeFile('./formInputDatabase.json', JSON.stringify(formInputDatabase), (err) => {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log('formInputDatabase successfully written to file.');
+            }
+        });
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
