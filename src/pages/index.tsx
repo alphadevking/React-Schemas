@@ -31,7 +31,6 @@ export default function Home() {
             <div className="my-2">
               <label className="block text-gray-700 font-bold mb-2" htmlFor="firstname">Firstname</label>
               <input 
-              onChange={handleInputChange}
               value={formInputs.firstname}
               className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="firstname" type="text" name="firstname" placeholder='Enter your firstname' />
             </div>
@@ -39,7 +38,6 @@ export default function Home() {
             <div className="my-2">
               <label className="block text-gray-700 font-bold mb-2" htmlFor="lastname">Lastname</label>
               <input 
-              onChange={handleInputChange}
               value={formInputs.lastname}
               className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="lastname" type="text" name="lastname" placeholder='Enter your lastname' />
             </div>
@@ -47,7 +45,6 @@ export default function Home() {
             <div className="my-2">
               <label className="block text-gray-700 font-bold mb-2" htmlFor="email">Email</label>
               <input 
-              onChange={handleInputChange}
               value={formInputs.email}
               className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" name="email" placeholder='Enter your email address' />
             </div>
@@ -55,7 +52,6 @@ export default function Home() {
             <div className="my-2 relative">
               <label className="block text-gray-700 font-bold mb-2" htmlFor="password">Password</label>
               <input 
-              onChange={handleInputChange}
               value={formInputs.password}
               className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                 id="password"

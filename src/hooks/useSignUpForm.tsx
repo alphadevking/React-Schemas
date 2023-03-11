@@ -29,7 +29,7 @@ const useSignUpForm = (): {
             firstname: event.currentTarget.elements.firstname.value || '',
             lastname: event.currentTarget.elements.lastname.value || '',
             email: event.currentTarget.elements.email.value || '',
-            password: event.currentTarget.elements.password.value || '',
+            password: event.currentTarget.elements.email.value || '',
         };
 
         console.log(
@@ -56,7 +56,6 @@ const useSignUpForm = (): {
             console.error(error);
         }
     };
-
 
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
