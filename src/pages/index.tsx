@@ -32,6 +32,7 @@ export default function Home() {
               <label className="block text-gray-700 font-bold mb-2" htmlFor="firstname">Firstname</label>
               <input 
               value={formInputs.firstname}
+              onChange={handleInputChange}
               className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="firstname" type="text" name="firstname" placeholder='Enter your firstname' />
             </div>
 
@@ -39,6 +40,7 @@ export default function Home() {
               <label className="block text-gray-700 font-bold mb-2" htmlFor="lastname">Lastname</label>
               <input 
               value={formInputs.lastname}
+              onChange={handleInputChange}
               className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="lastname" type="text" name="lastname" placeholder='Enter your lastname' />
             </div>
 
@@ -46,6 +48,7 @@ export default function Home() {
               <label className="block text-gray-700 font-bold mb-2" htmlFor="email">Email</label>
               <input 
               value={formInputs.email}
+              onChange={handleInputChange}
               className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" name="email" placeholder='Enter your email address' />
             </div>
 
@@ -53,6 +56,7 @@ export default function Home() {
               <label className="block text-gray-700 font-bold mb-2" htmlFor="password">Password</label>
               <input 
               value={formInputs.password}
+              onChange={handleInputChange}
               className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                 id="password"
                 type={showPassword ? 'text' : 'password'}
