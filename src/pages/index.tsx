@@ -107,7 +107,7 @@ export default function Home() {
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 name="password"
-                placeholder=""
+                placeholder="***********"
               />
               {password && (
                 <p className="absolute -bottom-4 text-xs text-red-500 italic">{password}</p>
@@ -128,7 +128,7 @@ export default function Home() {
             </div>
 
             <button
-              className="bg-gray-800 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-md focus:outline-none focus:shadow-outline my-5"
+              className="duration-300 bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-3 rounded-md focus:outline-none focus:shadow-outline my-5"
               type="submit"
             >
               Sign Up
