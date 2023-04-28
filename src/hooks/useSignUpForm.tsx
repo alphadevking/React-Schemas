@@ -1,67 +1,60 @@
-import React from 'react';
+import React, { FormEvent, ChangeEvent } from 'react';
 
-interface FormInputs {
+export interface FormInputs {
     firstname: string;
     lastname: string;
     email: string;
     password: string;
 }
 
-interface FormElements extends HTMLFormControlsCollection {
-    firstname: HTMLInputElement;
-    lastname: HTMLInputElement;
-    email: HTMLInputElement;
-    password: HTMLInputElement;
+interface UseSignUpFormReturnType {
+    formInputs: FormInputs;
+    handleFormSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
+    handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
-
-type Event = React.FormEvent<HTMLFormElement & { elements: FormElements }>;
-
-const useSignUpForm = (): {
-    formInputs: FormInputs,
-    handleFormSubmit: (event: Event) => void,
-    handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-} => {
-
-    const handleFormSubmit = async (event: Event): Promise<void> => {
+const useSignUpForm = (): UseSignUpFormReturnType => {
+    const handleFormSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault();
 
+        const formRef = event.currentTarget; // explicit typing of form element
+
         const formInputs: FormInputs = {
-            firstname: event.currentTarget.elements.firstname.value || '',
-            lastname: event.currentTarget.elements.lastname.value || '',
-            email: event.currentTarget.elements.email.value || '',
-            password: event.currentTarget.elements.password.value || '',
+            // access each input value from the formRef and give explicit typing
+            firstname: (formRef.elements.namedItem('firstname') as HTMLInputElement).value || '',
+            lastname: (formRef.elements.namedItem('lastname') as HTMLInputElement).value || '',
+            email: (formRef.elements.namedItem('email') as HTMLInputElement).value || '',
+            password: (formRef.elements.namedItem('password') as HTMLInputElement).value || '',
         };
 
         console.log(
             `Your name is: ${formInputs.firstname} ${formInputs.lastname} and your email address is: ${formInputs.email}`
         );
-
-        setFormInputs(formInputs);
-
+        
         try {
-            const response = await fetch('/api/signup', {
+            const response = await fetch('/api/signUpForm', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formInputs),
             });
-
             if (response.ok) {
                 console.log('Form data successfully submitted.');
             } else {
                 console.error('Failed to submit form data.');
             }
         } catch (error) {
-            console.error(error);
+            console.error('Error submitting form data:', error);
         }
+
+        setFormInputs(formInputs);
+
     };
 
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
         setFormInputs((formInputs) => ({
             ...formInputs,
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
         }));
     };
 
@@ -73,6 +66,7 @@ const useSignUpForm = (): {
     });
 
     return { formInputs, handleFormSubmit, handleInputChange };
+
 };
 
 export default useSignUpForm;
