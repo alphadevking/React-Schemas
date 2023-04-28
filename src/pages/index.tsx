@@ -1,16 +1,19 @@
-import useSignUpForm from '@/hooks/useSignUpForm';
-import Head from 'next/head'
+import useSignUpForm, { ErrorMessages } from '@/hooks/useSignUpForm';
+import Head from 'next/head';
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Home() {
+  const { formInputs, handleFormSubmit, handleInputChange, errorMessages } =
+    useSignUpForm();
 
-  const { formInputs, handleFormSubmit, handleInputChange } = useSignUpForm()
+  const { firstname, lastname, email, password } =
+    errorMessages as ErrorMessages;
 
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
-    setShowPassword(prevShowPassword => !prevShowPassword);
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   return (
@@ -22,50 +25,94 @@ export default function Home() {
         <link rel="icon" href="/" />
       </Head>
 
-      <main className='p-[5%]'>
-
+      <main className="p-[5%]">
         <div className="flex justify-left">
-
           <form onSubmit={handleFormSubmit} className="w-screen md:w-96 mx-auto">
-
             <h1 className="text-2xl font-bold my-4">Sign up for an account</h1>
 
             <div className="my-2">
-              <label className="block text-gray-700 font-bold mb-2" htmlFor="firstname">Firstname</label>
-              <input 
-              value={formInputs.firstname}
-              onChange={handleInputChange}
-              className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="firstname" type="text" name="firstname" placeholder='Enter your firstname' />
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="firstname"
+              >
+                Firstname
+              </label>
+              <input
+                value={formInputs.firstname}
+                onChange={handleInputChange}
+                className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
+                id="firstname"
+                type="text"
+                name="firstname"
+                placeholder="Enter your firstname"
+              />
+              {firstname && (
+                <p className="text-xs text-red-500 italic">{firstname}</p>
+              )}
             </div>
 
             <div className="my-2">
-              <label className="block text-gray-700 font-bold mb-2" htmlFor="lastname">Lastname</label>
-              <input 
-              value={formInputs.lastname}
-              onChange={handleInputChange}
-              className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="lastname" type="text" name="lastname" placeholder='Enter your lastname' />
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="lastname"
+              >
+                Lastname
+              </label>
+              <input
+                value={formInputs.lastname}
+                onChange={handleInputChange}
+                className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
+                id="lastname"
+                type="text"
+                name="lastname"
+                placeholder="Enter your lastname"
+              />
+              {lastname && (
+                <p className="text-xs text-red-500 italic">{lastname}</p>
+              )}
             </div>
 
             <div className="my-2">
-              <label className="block text-gray-700 font-bold mb-2" htmlFor="email">Email</label>
-              <input 
-              value={formInputs.email}
-              onChange={handleInputChange}
-              className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" name="email" placeholder='Enter your email address' />
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="email"
+              >
+                Email
+              </label>
+              <input
+                value={formInputs.email}
+                onChange={handleInputChange}
+                className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Enter your email address"
+              />
+              {email && (
+                <p className="text-xs text-red-500 italic">{email}</p>
+              )}
             </div>
 
             <div className="my-2 relative">
-              <label className="block text-gray-700 font-bold mb-2" htmlFor="password">Password</label>
-              <input 
-              value={formInputs.password}
-              onChange={handleInputChange}
-              className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="password"
+              >
+                Password
+              </label>
+              <input
+                value={formInputs.password}
+                onChange={handleInputChange}
+                className="border rounded-md w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 name="password"
-                placeholder=''
+                placeholder=""
               />
-              <div className="absolute inset-y-0 top-8 text-lg right-3 flex items-center">
+              {password && (
+                <p className="absolute -bottom-4 text-xs text-red-500 italic">{password}</p>
+              )}
+              <div className="absolute inset-y-0 top-[45%] text-lg right-3 flex items-center">
                 {showPassword ? (
                   <FaEyeSlash
                     className="text-gray-500 cursor-pointer"
@@ -80,13 +127,15 @@ export default function Home() {
               </div>
             </div>
 
-            <button className="bg-gray-800 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-md focus:outline-none focus:shadow-outline my-2" type="submit">
+            <button
+              className="bg-gray-800 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-md focus:outline-none focus:shadow-outline my-5"
+              type="submit"
+            >
               Sign Up
             </button>
-
           </form>
         </div>
       </main>
     </React.Fragment>
-  )
+  );
 }
