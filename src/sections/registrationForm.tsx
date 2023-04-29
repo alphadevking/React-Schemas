@@ -13,7 +13,7 @@ const validationSchema = z
         }),
         password: z
             .string()
-            .min(6, { message: "Password must be atleast 6 characters" }),
+            .min(6, { message: "Password must be atleast 6 characters long" }),
         confirmPassword: z
             .string()
             .min(1, { message: "Confirm Password is required" }),
